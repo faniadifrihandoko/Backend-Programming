@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // Import Animal Controller
 use App\Http\Controllers\AnimalController;
+// Import Student Controller
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +30,11 @@ Route::post('/animals', [AnimalController::class, 'store']);
 Route::put('/animals/{id}', [AnimalController::class, 'update']);
 
 Route::delete('/animals/{id}', [AnimalController::class, 'destroy']);
+
+// Routing untuk students
+
+// Method GET, route students
+Route::get("/students", [StudentController::class, 'index']);
+
+// Method POST, route students
+Route::post("/students", [StudentController::class, 'store']);
