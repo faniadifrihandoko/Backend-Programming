@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PatientsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +20,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-# Method Api Resource
-Route::apiResource('patients', PatientsController::class);
+Route::middleware(['auth:sanctum'])->group(function () {
+    # Route Api Resource
+    Route::apiResource('patients', PatientsController::class);
 
-# Method (GET) Search Resource by name
-Route::get('/patients/search/{name}', [PatientsController::class, 'search']);
+    # Route GET Search Resource by name
+    Route::get('/patients/search/{name}', [PatientsController::class, 'search']);
 
-# Method (GET) Positive Resource
-Route::get('/patients/status/positive', [PatientsController::class, 'positive']);
+    # Route GET Positive Resource
+    Route::get('/patients/status/positive', [PatientsController::class, 'positive']);
 
-# Method (GET) Recovered Resource
-Route::get('/patients/status/recovered', [PatientsController::class, 'recovered']);
+    # Route GET Recovered Resource
+    Route::get('/patients/status/recovered', [PatientsController::class, 'recovered']);
 
-# Method (GET) Dead Resource
-Route::get('/patients/status/dead', [PatientsController::class, 'dead']);
+    # Route GET Dead Resource
+    Route::get('/patients/status/dead', [PatientsController::class, 'dead']);
+});
+
+#Membuat Route Register dan Login
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
